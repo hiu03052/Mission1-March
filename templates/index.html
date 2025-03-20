@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Recognition</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}"> <!-- CSS -->
+</head>
+<body>
+    <h1>Upload a Car Image</h1>
+    <form method="post">
+        <input type="text" name="image_url" placeholder="Enter image URL" required>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if result %}
+        <div class="result">
+            <h2>Analysis Result:</h2>
+            <img src="{{ image_url }}" width="300">
+            
+            <!-- Tags -->
+            <p><strong>Tags:</strong></p>
+            {% if result.get('predictions') %}
+                <ul>
+                    {% for prediction in result['predictions'] %}
+                        <li>{{ prediction['tagName'] }} (confidence: {{ prediction['probability'] }})</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No predictions found.</p>
+            {% endif %}
+
+            <pre>{{ result }}</pre>
+        </div>
+    {% endif %}
+</body>
+</html>
