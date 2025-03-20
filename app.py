@@ -1,7 +1,9 @@
 from flask import Flask, request, render_template
+from flask_cors import CORS 
 import requests
 
 app = Flask(__name__)
+CORS(app)
 
 AZURE_KEY = "iVz9t5fbqkPuHcwzJdaw5f6RsjLRTRE6VZnHfJnq1PMHiYaO326jJQQJ99BCACL93NaXJ3w3AAAJACOGdj31"
 PROJECT_ID = "09689286-91b1-44f8-ae68-f66c04751175" 
@@ -37,4 +39,4 @@ def index():
     return render_template("index.html", result=result)  
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=8080)
